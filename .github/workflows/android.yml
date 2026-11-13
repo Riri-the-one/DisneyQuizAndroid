@@ -1,0 +1,40 @@
+name: Android validation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - run: sdkmanager 'platforms;android-36.1' 'build-tools;36.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/structure.test.cjs
+      - name: Scoring regressions
+        run: |
+          mkdir -p build/scoring-tests
+          javac -encoding UTF-8 -d build/scoring-tests app/src/main/java/com/example/projet_quiz/QuizScoring.java tests/QuizScoringTest.java
+          java -cp build/scoring-tests com.example.projet_quiz.QuizScoringTest
+      - run: python3 scripts/create-demo-config.py
+      - name: Unit tests, lint and debug APK
+        run: bash gradlew testDebugUnitTest lintDebug assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-reports
+          path: app/build/reports
+          if-no-files-found: ignore

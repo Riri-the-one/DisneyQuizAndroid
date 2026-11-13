@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Projet_Quiz</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mot de passe</string>
+    <string name="confirm_password_hint">Confirmer le mot de passe</string>
+    <string name="btn_register">S\'inscrire</string>
+    <string name="already_have_account">Déjà un compte ? Connectez-vous</string>
+    <string name="btn_signin">Sign in</string>
+    <string name="to_register">To register click here</string>
+    <string name="firstname_hint">Prénom</string>
+    <string name="choose_answer">Merci de choisir une réponse.</string>
+    <string name="invalid_email">Saisissez une adresse email valide.</string>
+    <string name="password_required">Saisissez votre mot de passe.</string>
+    <string name="signing_in">Connexion en cours…</string>
+    <string name="signin_failed">Connexion impossible. Vérifiez vos identifiants et votre connexion réseau.</string>
+    <string name="registration_failed">Inscription impossible. Vérifiez votre connexion ou utilisez une autre adresse email.</string>
+    <string name="score_percentage">%1$d %%</string>
+</resources>
